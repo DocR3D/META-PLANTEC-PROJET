@@ -2,14 +2,14 @@ package MetaModel;
 
 import java.util.ArrayList;
 
-public class Modele extends NamedElement {
+public class Modele extends Type {
 
-	ArrayList<Entite> entites;
+	ArrayList<Type> entites;
 	
 	
-	public Modele(java.lang.String nom, int id) {
+	public Modele(String nom, int id) {
 		super(nom,id);
-		this.entites = new ArrayList<Entite>();
+		this.entites = new ArrayList<Type>();
 	}
 
 
@@ -19,7 +19,7 @@ public class Modele extends NamedElement {
 	}
 
 
-	public ArrayList<Entite> valeur() {
+	public ArrayList<Type> valeur() {
 		return entites;
 	}
 	

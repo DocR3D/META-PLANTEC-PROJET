@@ -1,6 +1,11 @@
 package MetaModel;
 
-public abstract class Type {
-	abstract public Type valeur();
-	abstract public void accept(Visitor v);
+import java.util.ArrayList;
+
+public abstract class Type extends NamedElement {
+	public Type(String nom, int id) {
+		super(nom, id);
+	}
+	abstract public ArrayList<Type> valeur();
+
 }

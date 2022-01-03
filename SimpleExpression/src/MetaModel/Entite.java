@@ -2,13 +2,13 @@ package MetaModel;
 
 import java.util.ArrayList;
 
-public class Entite extends NamedElement {
+public class Entite extends Type {
 	
-	ArrayList<Attribut> attributs;
+	ArrayList<Type> attributs;
 
 	public Entite(java.lang.String nom, int id) {
 		super(nom, id);
-		this.attributs = new ArrayList<Attribut>();
+		this.attributs = new ArrayList<Type>();
 	}
 	
 	@Override
@@ -16,7 +16,7 @@ public class Entite extends NamedElement {
 		v.visitEntite(this);
 	}
 	
-	public ArrayList<Attribut> valeur() {
+	public ArrayList<Type> valeur() {
 		return attributs;
 	}
 

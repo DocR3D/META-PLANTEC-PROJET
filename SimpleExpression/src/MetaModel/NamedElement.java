@@ -1,6 +1,10 @@
 package MetaModel;
 
+import java.util.ArrayList;
+
 public abstract class NamedElement {
+
+	abstract public void accept(Visitor v);
 
 
 	int id;
@@ -9,19 +13,11 @@ public abstract class NamedElement {
 		this.nom = nom;
 		this.id = id;
 	}
-	public abstract void accept(Visitor v);
-
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public java.lang.String getNom() {
+	public String getNom() {
 		return nom;
-	}
-	public void setNom(java.lang.String nom) {
-		this.nom = nom;
 	}
 	
 }
