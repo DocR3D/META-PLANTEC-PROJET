@@ -3,9 +3,23 @@ package XMLIO2;
 
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.File;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.Document;
 
+import MetaModel.Modele;
+import MetaModel.NamedElement;
 import SLMetaModel.AddExp;
 import SLMetaModel.Exp;
 import SLMetaModel.IntExp;
@@ -15,10 +29,27 @@ class XMLAnalyserTest {
 	@Test
 	void test1() {
 		XMLAnalyser analyser = new XMLAnalyser();
-		Exp exp = analyser.getRootFromFilenamed("Exemple1.xml");
-		assertTrue(exp instanceof IntExp);
-		assertTrue(((IntExp)exp).getVal() == 2);
+		NamedElement exp = analyser.getRootFromFilenamed("ExempleXML01.xml");
+		
+		assert(exp != null);
+
 	}
+	
+	@Test
+	void test3() throws ParserConfigurationException, TransformerException {
+		XMLAnalyser analyser = new XMLAnalyser();
+		NamedElement exp = analyser.getRootFromFilenamed("ExempleXML01.xml");
+		XmlSerializer serializer = new XmlSerializer();
+		exp.accept(serializer);
+		Document document = serializer.result();
+		TransformerFactory tFactory = TransformerFactory.newInstance();
+		Transformer transformer = tFactory.newTransformer();
+
+		DOMSource source = new DOMSource(document);
+		Result result = new StreamResult(new File("ExempleXML01-out.xml"));
+		transformer.transform(source, result);
+	}
+	/*
 	@Test
 	void test2() {
 		XMLAnalyser analyser = new XMLAnalyser();
@@ -39,5 +70,6 @@ class XMLAnalyserTest {
 		assertTrue(exp instanceof IntExp);
 		assertTrue(((IntExp)exp).getVal() == 20);
 	}
+	*/
 
 }

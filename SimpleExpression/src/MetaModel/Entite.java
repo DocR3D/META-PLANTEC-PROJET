@@ -19,5 +19,9 @@ public class Entite extends Type {
 	public ArrayList<Type> valeur() {
 		return attributs;
 	}
+	
+	public void addType(Type t) {
+		attributs.add(t);
+	}
 
 }

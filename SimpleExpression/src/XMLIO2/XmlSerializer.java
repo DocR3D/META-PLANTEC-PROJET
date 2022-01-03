@@ -12,17 +12,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import MetaModel.Attribut;
+import MetaModel.Collection;
 import MetaModel.Entite;
 import MetaModel.Modele;
 import MetaModel.NamedElement;
 import MetaModel.Type;
 import MetaModel.Visitor;
-import SLMetaModel.AddExp;
-import SLMetaModel.BinaryExp;
 import SLMetaModel.DivExp;
-import SLMetaModel.Exp;
-import SLMetaModel.MinusExp;
-import SLMetaModel.MultExp;
 
 public class XmlSerializer extends Visitor {
 	Deque<Element> stack;
@@ -97,7 +93,7 @@ public class XmlSerializer extends Visitor {
 		addIdAndName(e, elem);
 		String types = "";
 		for(Type unType : e.valeur()) {
-			lesTypes += unType.getId();
+			types += unType.getId();
 			unType.accept(this);
 		}
 
@@ -108,21 +104,34 @@ public class XmlSerializer extends Visitor {
 		super.visitAttribut(e);
 		Element elem = this.doc.createElement("attribut");
 		addIdAndName(e, elem);
+		
+		Attr attr = doc.createAttribute("type");
+		attr.setValue(e.getNom());
+		elem.setAttributeNode(attr);
 
 	}
 
 	@Override
-	public void visitMultExp(MultExp e) {
-		super.visitMultExp(e);
-		Element elem = this.doc.createElement("MultExp");
-		this.handleBinaryExp(elem, e);
-	}
+	public void visitCollection(Collection e) {
+		super.visitCollection(e);
+		Element elem = this.doc.createElement("collection");
+		addIdAndName(e, elem);
 
-	@Override
-	public void visitDivExp(DivExp e) {
-		super.visitDivExp(e);
-		Element elem = this.doc.createElement("DivExp");
-		this.handleBinaryExp(elem, e);
+
+		if(e.getMin() != 0) {
+			Attr attr = doc.createAttribute("min");
+			attr.setValue(e.getMin()+"");
+			elem.setAttributeNode(attr);
+		}
+		
+		Attr attr = doc.createAttribute("max");
+		attr.setValue(e.getMin()+"");
+		elem.setAttributeNode(attr);
+		
+		attr = doc.createAttribute("type");
+		attr.setValue(e.getNom());
+		elem.setAttributeNode(attr);
+		
 	}
 
 }

@@ -23,6 +23,10 @@ public class Modele extends Type {
 		return entites;
 	}
 	
+	public void addType(Type t) {
+		entites.add(t);
+	}
+	
 	
 	
 

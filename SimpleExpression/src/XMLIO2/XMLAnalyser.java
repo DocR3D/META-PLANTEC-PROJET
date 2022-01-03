@@ -1,59 +1,126 @@
 package XMLIO2;
 
-import javax.xml.parsers.*;
-import org.w3c.dom.*;
-import org.xml.sax.*;
-
-import SLMetaModel.*;
-
-import java.io.*;
-import java.lang.reflect.InvocationTargetException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import MetaModel.Attribut;
+import MetaModel.Collection;
+import MetaModel.Entite;
+import MetaModel.Modele;
+import MetaModel.NamedElement;
+import MetaModel.StaticArray;
+import MetaModel.Type;
 
 public class XMLAnalyser {
 
 	protected Map<String, Element> elementIndex;
-	protected Map<String, Exp> expIndex;
+	protected Map<String, NamedElement> namedElementIndex;
+	protected Map<String, ArrayList<Integer>> childsOfElements;
 
 	public XMLAnalyser() {
 		this.elementIndex = new HashMap<String, Element>();
-		this.expIndex = new HashMap<String, Exp>();
+		this.namedElementIndex = new HashMap<String, NamedElement>();
+		this.childsOfElements = new HashMap<String, ArrayList<Integer>>();
+	}
+	
+	protected Entite entityFromElement(Element e) {
+		String name = e.getAttribute("name");
+		Integer id = Integer.parseInt(e.getAttribute("id"));
+		String lesEntites = e.getAttribute("entities");
+		ArrayList<Integer> lesId = new ArrayList<Integer>();
+		for(String unNombre : lesEntites.split(" ")) {
+			if(unNombre != "")
+				lesId.add(Integer.parseInt(unNombre));
+		}
+		childsOfElements.put(id+"", lesId);
+
+		return new Entite(name,id);
+	}
+	
+	protected Modele modeleFromElement(Element e) {
+		String name = e.getAttribute("name");
+		Integer id = Integer.parseInt(e.getAttribute("id"));
+		
+		String lesEntites = e.getAttribute("attributes");
+		ArrayList<Integer> lesId = new ArrayList<Integer>();
+		for(String unNombre : lesEntites.split(" ")) {
+			System.out.println(unNombre);
+			if(unNombre != "")
+				lesId.add(Integer.parseInt(unNombre));
+		}
+		childsOfElements.put(id+"", lesId);
+		
+		return new Modele(name,id);
+	}
+	
+	protected Attribut attributeFromElement(Element e) {
+		String name = e.getAttribute("name");
+		Integer id = Integer.parseInt(e.getAttribute("id"));
+		String type = e.getAttribute("type");
+
+		return new Attribut(type,name,id);
+	}
+	
+	protected Collection collectionFromElement(Element e) {
+		String name = e.getAttribute("name");
+		String type = e.getAttribute("type");
+
+		Integer id = Integer.parseInt(e.getAttribute("id"));
+		
+		
+		//Integer min = Integer.parseInt(e.getAttribute("min"));
+		Integer max = Integer.parseInt(e.getAttribute("max"));
+
+		//if(min != null) return new StaticArray(name,min,max,id); //TODO Modifier ça quand séparation collection
+		return new StaticArray(type,name,max,id);
 	}
 
-	protected BinaryExp binaryExpFromElement(Element e) {
-		String tn = e.getTagName();
-		Exp opg = expFromElement(this.elementIndex.get(e.getAttribute("opg")));
-		Exp opd = expFromElement(this.elementIndex.get(e.getAttribute("opd")));
-		BinaryExp result = null;
-		try {
-			Class<?> cls = Class.forName("SLMetaModel."+tn);
-			result = (BinaryExp) cls.getDeclaredConstructor(Exp.class, Exp.class).newInstance(opg, opd);
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException | NoSuchMethodException | SecurityException e1) {
-			e1.printStackTrace();
+	protected NamedElement NamedElementFromElement(Element e) {
+		String id = e.getAttribute("id");
+		NamedElement result = this.namedElementIndex.get(id);
+		if (result != null) return result;
+		String tag = e.getTagName();
+		if (tag.equals("model")) {
+			result = modeleFromElement(e);
+		} else if(tag.equals("entity")){
+			result = entityFromElement(e);
+		} else if(tag.equals("attribute")) {
+			result = attributeFromElement(e);
+		}else if(tag.equals("collection")) {
+			collectionFromElement(e);
 		}
-
+		this.namedElementIndex.put(id, result);
 		return result;
 	}
 	
-	protected IntExp intExpFromElement(Element e) {
-		Integer val = Integer.parseInt(e.getAttribute("val"));
-		return new IntExp(val);
-	}
-
-	protected Exp expFromElement(Element e) {
-		String id = e.getAttribute("id");
-		Exp result = this.expIndex.get(id);
-		if (result != null) return result;
-		String tag = e.getTagName();
-		if (tag.equals("IntExp")) {
-			result = intExpFromElement(e);
-		} else  {
-			result = binaryExpFromElement(e);
-		} 
-		this.expIndex.put(id, result);
-		return result;
+	protected void AddChildsToElement(NamedElement e) {
+			if (e instanceof Modele && this.childsOfElements.get(e.getId()) != null) {
+				for(Integer unNombre : this.childsOfElements.get(e.getId()))
+					
+					((Modele)e).addType((Type) this.namedElementIndex.get(unNombre));
+				
+			} else if(e instanceof Entite && this.childsOfElements.get(e.getId()) != null){
+				for(Integer unNombre : this.childsOfElements.get(e.getId()))
+					((Entite) e).addType((Type) this.namedElementIndex.get(unNombre));
+			}
 	}
 
 	protected void firstRound(Element el) {
@@ -72,19 +139,26 @@ public class XMLAnalyser {
 		for (int i = 0; i < nodes.getLength(); i++) {
 			Node n = nodes.item(i);
 			if (n instanceof Element) {
-				expFromElement((Element)n);
+				NamedElementFromElement((Element)n);
 			}
 		}
 	}
+	
+	protected void thirdRound() {
+		for(NamedElement unElement : namedElementIndex.values())
+				AddChildsToElement(unElement);
+		}
 
-	public Exp getStartExpFromDocument(Document document) {
+	
+	public NamedElement getStartExpFromDocument(Document document) {
 		Element e = document.getDocumentElement();
 		firstRound(e);
 		secondRound(e);
-		return this.expIndex.get(e.getAttribute("start"));
+		thirdRound();
+		return this.namedElementIndex.get("1"); // TODO : Recuperer proprement l'id
 	}
 	
-	public Exp getRootFromInputStream(InputStream stream) {
+	public NamedElement getRootFromInputStream(InputStream stream) {
 		try {
 			// crÃ©ation d'une fabrique de documents
 			DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
@@ -107,12 +181,12 @@ public class XMLAnalyser {
 		return null;
 	}
 	
-	public Exp getRootFromString(String contents) {		
+	public NamedElement getRootFromString(String contents) {		
 		InputStream stream = new ByteArrayInputStream(contents.getBytes());
 		return getRootFromInputStream(stream);
 	}
 	
-	public Exp getRootFromFile(File file) {		
+	public NamedElement getRootFromFile(File file) {		
 		InputStream stream = null;
 		try {
 			stream = new FileInputStream(file);
@@ -123,7 +197,7 @@ public class XMLAnalyser {
 		return getRootFromInputStream(stream);
 	}
 
-	public Exp getRootFromFilenamed(String filename) {
+	public NamedElement getRootFromFilenamed(String filename) {
 			File file = new File(filename);
 			return getRootFromFile(file);
 	}

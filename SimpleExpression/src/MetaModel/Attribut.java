@@ -3,9 +3,13 @@ package MetaModel;
 
 public class Attribut extends NamedElement {
 
-	Type type;
+	String type; //TODO : type = String ou Type
 
-	public Attribut(Type type, java.lang.String nom, int id) {
+	public Attribut(java.lang.String nom, int id) { // TODO SUPPRIMER 
+		super(nom, id);
+	}
+	
+	public Attribut(String type, java.lang.String nom, int id) { 
 		super(nom, id);
 		this.type = type;
 	}
@@ -15,9 +19,14 @@ public class Attribut extends NamedElement {
 		v.visitAttribut(this);
 	}
 
-	public Type valeur() {
+	public String valeur() {
 		return type;
 	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 	
 	
 

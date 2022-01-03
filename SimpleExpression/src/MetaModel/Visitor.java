@@ -5,6 +5,6 @@ public class Visitor {
 	public void visitEntite(Entite e) {}
 	public void visitModele(Modele e) {}
 	public void visitAttribut(Attribut e) {}
-	public void visitCollection(Collection e) {}
+	public void visitCollection(Collection e) {} //TODO Séparer en deux types de collection.
 
 }

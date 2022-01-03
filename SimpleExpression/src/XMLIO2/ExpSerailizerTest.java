@@ -22,6 +22,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import MetaModel.NamedElement;
 import SLMetaModel.Exp;
 import SLMetaModel.IntExp;
 import backEnd.Calculator;
@@ -78,7 +79,7 @@ class ExpSerailizerTest {
 	@Test
 	void test3() throws ParserConfigurationException, TransformerException {
 		XMLAnalyser analyser = new XMLAnalyser();
-		Exp exp = analyser.getRootFromFilenamed("Exemple1.xml");
+		NamedElement exp = analyser.getRootFromFilenamed("Exemple1.xml");
 		XmlSerializer serializer = new XmlSerializer();
 		exp.accept(serializer);
 		Document document = serializer.result();
@@ -92,7 +93,7 @@ class ExpSerailizerTest {
 	@Test
 	void test4() throws ParserConfigurationException, TransformerException {
 		XMLAnalyser analyser = new XMLAnalyser();
-		Exp exp = analyser.getRootFromFilenamed("Exemple2.xml");
+		NamedElement exp = analyser.getRootFromFilenamed("Exemple2.xml");
 		XmlSerializer serializer = new XmlSerializer();
 		exp.accept(serializer);
 		Document document = serializer.result();

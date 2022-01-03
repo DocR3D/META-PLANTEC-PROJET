@@ -1,0 +1,8 @@
+<Root start="#1">
+	<model name="Flotte" id="1" entities="2 13" />
+	<entity name="Satellite" id="2" attributes="3 4 5" />
+	<attribute name="nom" type="String" id="3" />
+	<attribute name="id" type="Integer" id="4" />
+	<attribute name="parent" type="Flotte" id="5" />
+	<entity name="Flotte" id="13" />
+</Root>
