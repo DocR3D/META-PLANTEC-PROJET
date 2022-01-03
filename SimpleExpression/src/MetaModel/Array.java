@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Array extends Collection {
 	
-	public Array(Type type, int taille) {
+	public Array(Attribut type, int taille) {
 		super(type,0,taille); //TODO : Min = 0 ou min = taille ?
 	}
 
@@ -19,13 +19,13 @@ public class Array extends Collection {
 	}
 
 	@Override
-	public void addItem(Object item) {
+	public void addItem(Type item) {
 		if(this.getSize() < max) this.valeurs.add(item);
 	}
 
 	@Override
-	public ArrayList<?> getValeur() {
-		return this.valeurs;
+	public Attribut getValeur() {
+		return null;
 	}
 
 

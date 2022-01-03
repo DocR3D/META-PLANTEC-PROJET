@@ -7,7 +7,7 @@ public class Modele extends NamedElement {
 	ArrayList<Entite> entites;
 	
 	
-	public Modele(String nom, int id) {
+	public Modele(java.lang.String nom, int id) {
 		super(nom,id);
 		this.entites = new ArrayList<Entite>();
 	}
@@ -15,8 +15,7 @@ public class Modele extends NamedElement {
 
 	@Override
 	public void accept(Visitor v) {
-		v.visitModele(this);
-		
+		v.visitModele(this);	
 	}
 
 

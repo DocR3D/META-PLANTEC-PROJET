@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Set extends Collection {
 
-	public Set(Type type, int min, int max) {
+	public Set(Attribut type, int min, int max) {
 		super(type, min, max);
 	}
 
@@ -19,14 +19,14 @@ public class Set extends Collection {
 	}
 
 	@Override
-	public void addItem(Object item) {
+	public void addItem(Type item) {
 		if(this.getSize() < max && !this.valeurs.contains(item)) this.valeurs.add(item);
 		
 	}
 
 	@Override
-	public ArrayList<?> getValeur() {
-		return this.valeurs;
+	public Attribut getValeur() {
+		return null;
 	}
 
 }

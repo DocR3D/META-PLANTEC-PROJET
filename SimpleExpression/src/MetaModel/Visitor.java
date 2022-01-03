@@ -12,5 +12,6 @@ public class Visitor {
 	public void visitBag(Bag e) {}
 	public void visitEntite(Entite e) {}
 	public void visitModele(Modele e) {}
+	public void visitAttribut(Attribut attribut) {}
 
 }
