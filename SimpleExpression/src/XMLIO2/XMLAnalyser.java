@@ -84,10 +84,10 @@ public class XMLAnalyser {
 		Integer id = Integer.parseInt(e.getAttribute("id"));
 
 
-		//Integer min = Integer.parseInt(e.getAttribute("min"));
+		Integer min = Integer.parseInt(e.getAttribute("min"));
 		Integer max = Integer.parseInt(e.getAttribute("max"));
 
-		//if(min != null) return new StaticArray(name,min,max,id); //TODO Modifier ça quand séparation collection
+		if(min != null) return new StaticArray(type,name,id,min,max); //TODO Modifier ça quand séparation collection
 		return new StaticArray(type,name,max,id);
 	}
 
@@ -117,7 +117,6 @@ public class XMLAnalyser {
 			}
 		} else if(e instanceof Entite && this.childsOfElements.get(e.getId()+"") != null){
 			for(Integer unNombre : this.childsOfElements.get(e.getId()+"")) {
-				System.out.println(this.namedElementIndex.get(unNombre+"").getNom());
 				((Entite) e).addType((Attribut) this.namedElementIndex.get(unNombre+""));
 			}
 		}
@@ -146,7 +145,6 @@ public class XMLAnalyser {
 
 	protected void thirdRound() {
 		for(NamedElement unElement : namedElementIndex.values()) {
-			System.out.println(unElement);
 			AddChildsToElement(unElement);
 		}
 	}

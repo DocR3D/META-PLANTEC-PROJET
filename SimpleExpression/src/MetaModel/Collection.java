@@ -29,7 +29,7 @@ public abstract class Collection extends Attribut {
 	
 	@Override
 	public void accept(Visitor v) {
-		v.visitAttribut(this);
+		v.visitCollection(this);
 	}
 
 	public String valeur() {

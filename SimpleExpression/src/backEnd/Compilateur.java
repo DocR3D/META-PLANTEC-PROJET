@@ -22,10 +22,11 @@ public class Compilateur extends Visitor {
 	}
 	
 	public void visitCollection(Collection e) {
+
 		if(e.getMin() == 0) // C'est un tableau
-			ajouterTextAvecTabAvant(e.getNom() + ": Array [" + e.getMax() +"] of" + e.valeur() + "\n");
+			ajouterTextAvecTabAvant(e.getNom() + ": Array [" + e.getMax() +"] of " + e.valeur() + "\n");
 		else
-			ajouterTextAvecTabAvant(e.getNom() + ": List [" + e.getMin() +":"+ e.getMax() +"] of" + e.valeur()+"\n");
+			ajouterTextAvecTabAvant(e.getNom() + ": List [" + e.getMin() +":"+ e.getMax() +"] of " + e.valeur()+"\n");
 	}
 
 	
@@ -35,6 +36,7 @@ public class Compilateur extends Visitor {
 		nbTab++;
 		for(NamedElement unType : e.valeur()) {
 			unType.accept(this);
+			
 		}
 		nbTab--;
 		ajouterTextAvecTabAvant("end_entity;\n");
