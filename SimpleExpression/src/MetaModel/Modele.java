@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Modele extends Type {
 
-	ArrayList<Type> entites;
+	ArrayList<NamedElement> entites; //TODO Modifier le type ? 
 	
 	
 	public Modele(String nom, int id) {
 		super(nom,id);
-		this.entites = new ArrayList<Type>();
+		this.entites = new ArrayList<NamedElement>();
 	}
 
 
@@ -19,7 +19,7 @@ public class Modele extends Type {
 	}
 
 
-	public ArrayList<Type> valeur() {
+	public ArrayList<NamedElement> valeur() {
 		return entites;
 	}
 	

@@ -54,13 +54,15 @@ public class XmlSerializer extends Visitor {
 		Attr attr = doc.createAttribute("name");
 		attr.setValue(e.getNom().toString());
 		elem.setAttributeNode(attr);
+	
+
+		Attr attr2 = doc.createAttribute("id");
+		attr2.setValue(e.getId()+"");
+		elem.setAttributeNode(attr2);
 		
 		this.maybeUpdateRootFrom(elem);
 		this.root.appendChild(elem);
-		
-		attr = doc.createAttribute("id");
-		attr.setValue(e.getId()+"");
-		elem.setAttributeNode(attr);
+
 		
 
 	}
@@ -73,9 +75,11 @@ public class XmlSerializer extends Visitor {
 		
 		
 		String entities = "";
-		for(Type uneEntite : e.valeur()) {
-			entities += uneEntite.getId();
-			uneEntite.accept(this);
+		for(NamedElement uneEntite : e.valeur()) {
+			if(uneEntite != null) { //TODO C'est normal cette verification ?
+				entities += " " + uneEntite.getId();
+				uneEntite.accept(this);
+			}
 		}
 		Attr attr = doc.createAttribute("entities");
 		attr.setValue(entities);
@@ -92,7 +96,7 @@ public class XmlSerializer extends Visitor {
 		
 		addIdAndName(e, elem);
 		String types = "";
-		for(Type unType : e.valeur()) {
+		for(NamedElement unType : e.valeur()) {
 			types += unType.getId();
 			unType.accept(this);
 		}
@@ -106,7 +110,7 @@ public class XmlSerializer extends Visitor {
 		addIdAndName(e, elem);
 		
 		Attr attr = doc.createAttribute("type");
-		attr.setValue(e.getNom());
+		attr.setValue(e.valeur());
 		elem.setAttributeNode(attr);
 
 	}

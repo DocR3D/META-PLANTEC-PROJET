@@ -30,8 +30,9 @@ class XMLAnalyserTest {
 	void test1() {
 		XMLAnalyser analyser = new XMLAnalyser();
 		NamedElement exp = analyser.getRootFromFilenamed("ExempleXML01.xml");
+		assert(exp instanceof Modele);
+		System.out.println(((Modele)exp).valeur());
 		
-		assert(exp != null);
 
 	}
 	

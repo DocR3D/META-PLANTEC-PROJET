@@ -40,13 +40,13 @@ public class XMLAnalyser {
 		this.namedElementIndex = new HashMap<String, NamedElement>();
 		this.childsOfElements = new HashMap<String, ArrayList<Integer>>();
 	}
-	
+
 	protected Entite entityFromElement(Element e) {
 		String name = e.getAttribute("name");
 		Integer id = Integer.parseInt(e.getAttribute("id"));
-		String lesEntites = e.getAttribute("entities");
+		String lesAttributs = e.getAttribute("attributes");
 		ArrayList<Integer> lesId = new ArrayList<Integer>();
-		for(String unNombre : lesEntites.split(" ")) {
+		for(String unNombre : lesAttributs.split(" ")) {
 			if(unNombre != "")
 				lesId.add(Integer.parseInt(unNombre));
 		}
@@ -54,23 +54,21 @@ public class XMLAnalyser {
 
 		return new Entite(name,id);
 	}
-	
+
 	protected Modele modeleFromElement(Element e) {
 		String name = e.getAttribute("name");
 		Integer id = Integer.parseInt(e.getAttribute("id"));
-		
-		String lesEntites = e.getAttribute("attributes");
+
+		String lesEntites = e.getAttribute("entities");
 		ArrayList<Integer> lesId = new ArrayList<Integer>();
 		for(String unNombre : lesEntites.split(" ")) {
-			System.out.println(unNombre);
-			if(unNombre != "")
 				lesId.add(Integer.parseInt(unNombre));
 		}
 		childsOfElements.put(id+"", lesId);
-		
+
 		return new Modele(name,id);
 	}
-	
+
 	protected Attribut attributeFromElement(Element e) {
 		String name = e.getAttribute("name");
 		Integer id = Integer.parseInt(e.getAttribute("id"));
@@ -78,14 +76,14 @@ public class XMLAnalyser {
 
 		return new Attribut(type,name,id);
 	}
-	
+
 	protected Collection collectionFromElement(Element e) {
 		String name = e.getAttribute("name");
 		String type = e.getAttribute("type");
 
 		Integer id = Integer.parseInt(e.getAttribute("id"));
-		
-		
+
+
 		//Integer min = Integer.parseInt(e.getAttribute("min"));
 		Integer max = Integer.parseInt(e.getAttribute("max"));
 
@@ -105,22 +103,24 @@ public class XMLAnalyser {
 		} else if(tag.equals("attribute")) {
 			result = attributeFromElement(e);
 		}else if(tag.equals("collection")) {
-			collectionFromElement(e);
+			result = collectionFromElement(e);
 		}
-		this.namedElementIndex.put(id, result);
+		this.namedElementIndex.put(id+"", result);
 		return result;
 	}
-	
+
 	protected void AddChildsToElement(NamedElement e) {
-			if (e instanceof Modele && this.childsOfElements.get(e.getId()) != null) {
-				for(Integer unNombre : this.childsOfElements.get(e.getId()))
-					
-					((Modele)e).addType((Type) this.namedElementIndex.get(unNombre));
-				
-			} else if(e instanceof Entite && this.childsOfElements.get(e.getId()) != null){
-				for(Integer unNombre : this.childsOfElements.get(e.getId()))
-					((Entite) e).addType((Type) this.namedElementIndex.get(unNombre));
+		
+		if (e instanceof Modele && this.childsOfElements.get(e.getId()+"") != null) {
+			for(Integer unNombre : this.childsOfElements.get(e.getId()+"")) {
+				((Modele)e).addType((Type) this.namedElementIndex.get(unNombre+""));
 			}
+		} else if(e instanceof Entite && this.childsOfElements.get(e.getId()+"") != null){
+			for(Integer unNombre : this.childsOfElements.get(e.getId()+"")) {
+				System.out.println(this.namedElementIndex.get(unNombre+"").getNom());
+				((Entite) e).addType((Attribut) this.namedElementIndex.get(unNombre+""));
+			}
+		}
 	}
 
 	protected void firstRound(Element el) {
@@ -143,13 +143,15 @@ public class XMLAnalyser {
 			}
 		}
 	}
-	
-	protected void thirdRound() {
-		for(NamedElement unElement : namedElementIndex.values())
-				AddChildsToElement(unElement);
-		}
 
-	
+	protected void thirdRound() {
+		for(NamedElement unElement : namedElementIndex.values()) {
+			System.out.println(unElement);
+			AddChildsToElement(unElement);
+		}
+	}
+
+
 	public NamedElement getStartExpFromDocument(Document document) {
 		Element e = document.getDocumentElement();
 		firstRound(e);
@@ -157,7 +159,7 @@ public class XMLAnalyser {
 		thirdRound();
 		return this.namedElementIndex.get("1"); // TODO : Recuperer proprement l'id
 	}
-	
+
 	public NamedElement getRootFromInputStream(InputStream stream) {
 		try {
 			// création d'une fabrique de documents
@@ -180,12 +182,12 @@ public class XMLAnalyser {
 		}
 		return null;
 	}
-	
+
 	public NamedElement getRootFromString(String contents) {		
 		InputStream stream = new ByteArrayInputStream(contents.getBytes());
 		return getRootFromInputStream(stream);
 	}
-	
+
 	public NamedElement getRootFromFile(File file) {		
 		InputStream stream = null;
 		try {
@@ -198,7 +200,7 @@ public class XMLAnalyser {
 	}
 
 	public NamedElement getRootFromFilenamed(String filename) {
-			File file = new File(filename);
-			return getRootFromFile(file);
+		File file = new File(filename);
+		return getRootFromFile(file);
 	}
 }

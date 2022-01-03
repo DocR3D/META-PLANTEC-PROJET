@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Entite extends Type {
 	
-	ArrayList<Type> attributs;
+	ArrayList<NamedElement> attributs;
 
 	public Entite(java.lang.String nom, int id) {
 		super(nom, id);
-		this.attributs = new ArrayList<Type>();
+		this.attributs = new ArrayList<NamedElement>();
 	}
 	
 	@Override
@@ -16,12 +16,12 @@ public class Entite extends Type {
 		v.visitEntite(this);
 	}
 	
-	public ArrayList<Type> valeur() {
+	public ArrayList<NamedElement> valeur() {
 		return attributs;
 	}
 	
-	public void addType(Type t) {
-		attributs.add(t);
+	public void addType(Attribut unAttribut) {
+		attributs.add(unAttribut);
 	}
 
 }

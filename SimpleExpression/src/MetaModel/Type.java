@@ -6,6 +6,6 @@ public abstract class Type extends NamedElement {
 	public Type(String nom, int id) {
 		super(nom, id);
 	}
-	abstract public ArrayList<Type> valeur();
+	abstract public ArrayList<NamedElement> valeur();
 
 }
