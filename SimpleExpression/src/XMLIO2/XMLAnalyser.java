@@ -32,7 +32,7 @@ public class XMLAnalyser {
 	protected Map<String, Element> elementIndex;
 	protected Map<String, NamedElement> namedElementIndex;
 	protected Map<String, ArrayList<Integer>> childsOfElements;
-	
+
 	public XMLAnalyser() {
 		this.elementIndex = new HashMap<String, Element>();
 		this.namedElementIndex = new HashMap<String, NamedElement>();
@@ -71,7 +71,7 @@ public class XMLAnalyser {
 		String name = e.getAttribute("name");
 		Integer id = Integer.parseInt(e.getAttribute("id"));
 		String typeName = e.getAttribute("type");
-		
+
 		NamedElement unAttribut;
 		if(this.namedElementIndex.get(typeName) == null) {
 			unAttribut = new Attribut(null,typeName, -1);
@@ -84,12 +84,11 @@ public class XMLAnalyser {
 	protected Collection collectionFromElement(Element e) {
 		String name = e.getAttribute("name");
 		String typeName = e.getAttribute("type");
-		
+
 		NamedElement type;
 		if(this.namedElementIndex.get(typeName) == null)
 			type = new Entite(typeName, -1);
-		else type = this.namedElementIndex.get(typeName);
-		
+		else type = this.namedElementIndex.get(typeName);		
 
 		Integer id = Integer.parseInt(e.getAttribute("id"));
 		Integer max = Integer.parseInt(e.getAttribute("max"));
@@ -162,15 +161,24 @@ public class XMLAnalyser {
 
 
 	private void replaceFakeElement(NamedElement unElement) {
-		if(unElement instanceof Collection) {
+		if(unElement instanceof Collection && !(unElement instanceof Attribut)) {
 			Collection uneCollection = (Collection) unElement;
-			System.out.println(namedElementIndex.get(uneCollection.getType().getNom()));
-			uneCollection.setType(namedElementIndex.get(uneCollection.getType().getNom()));
-		}else if(unElement instanceof Attribut){
-			Attribut unAttribut = (Attribut) unElement;
-			unAttribut.setType(namedElementIndex.get(unAttribut.getType().getNom()));
-		}
-		
+			for(NamedElement unAttributQueJeCherche : namedElementIndex.values()) {
+				if(unAttributQueJeCherche instanceof Entite)
+					if(unAttributQueJeCherche.getNom().equals(uneCollection.getType().getNom())) {
+						uneCollection.setType(namedElementIndex.get(uneCollection.getType().getNom()));
+				}
+			}
+		}else 
+			if(unElement instanceof Attribut && !(unElement instanceof Collection)){
+				Attribut unAttribut = (Attribut) unElement;
+				for(NamedElement unAttributQueJeCherche : namedElementIndex.values()) {
+					if(unAttributQueJeCherche instanceof Attribut && unAttributQueJeCherche.getNom().equals(unAttribut.getType().getNom())) {
+						unAttribut.setType(namedElementIndex.get(unAttribut.getType().getNom()));
+					}
+				}
+			}
+
 	}
 
 	public NamedElement getStartExpFromDocument(Document document) {
