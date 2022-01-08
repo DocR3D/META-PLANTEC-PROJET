@@ -23,7 +23,7 @@ import org.w3c.dom.Element;
 import MetaModel.NamedElement;
 
 class XMLSerializerTest {
-
+/*
 	@Test
 	void test0() throws TransformerException, ParserConfigurationException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -99,5 +99,5 @@ class XMLSerializerTest {
 		Result result = new StreamResult(new File("exemple2-out.xml"));
 		transformer.transform(source, result);
 	}
-
+*/
 }

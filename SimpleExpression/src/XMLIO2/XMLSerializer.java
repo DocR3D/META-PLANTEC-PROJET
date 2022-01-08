@@ -24,7 +24,7 @@ public class XMLSerializer extends Visitor {
 	Integer counter;
 	Document doc;
 
-	Document result() {
+	public Document result() {
 		return this.doc;
 	}
 
@@ -118,8 +118,6 @@ public class XMLSerializer extends Visitor {
 		super.visitCollection(e);
 		Element elem = this.doc.createElement("collection");
 		addIdAndName(e, elem);
-
-
 		if(e.getMin() != 0) {
 			Attr attr = doc.createAttribute("min");
 			attr.setValue(e.getMin()+"");
@@ -131,7 +129,7 @@ public class XMLSerializer extends Visitor {
 		elem.setAttributeNode(attr);
 
 		attr = doc.createAttribute("type");
-		attr.setValue(e.getNom());
+		attr.setValue(e.getType().getNom());
 		elem.setAttributeNode(attr);
 
 	}

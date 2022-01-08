@@ -7,9 +7,9 @@ import MetaModel.Modele;
 import MetaModel.NamedElement;
 import MetaModel.Visitor;
 
-public class Compilateur extends Visitor {
+public class PrettyPrinter extends Visitor {
 
-	java.lang.String prettyPrinterOutPut = "";
+	String prettyPrinterOutPut = "";
 	int nbTab = 0;
 
 

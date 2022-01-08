@@ -44,6 +44,21 @@ class XMLAnalyserTest {
 		Result result = new StreamResult(new File("ExempleXML01-out.xml"));
 		transformer.transform(source, result);
 	}
+	
+	@Test
+	void test2() throws ParserConfigurationException, TransformerException {
+		XMLAnalyser analyser = new XMLAnalyser();
+		NamedElement exp = analyser.getRootFromFilenamed("ExempleXML02.xml");
+		XMLSerializer serializer = new XMLSerializer();
+		exp.accept(serializer);
+		Document document = serializer.result();
+		TransformerFactory tFactory = TransformerFactory.newInstance();
+		Transformer transformer = tFactory.newTransformer();
+
+		DOMSource source = new DOMSource(document);
+		Result result = new StreamResult(new File("ExempleXML02-out.xml"));
+		transformer.transform(source, result);
+	}
 	/*
 	@Test
 	void test2() {
