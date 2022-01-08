@@ -1,4 +1,4 @@
-# Projet de Meta : Mini spec 
+# Projet de Meta : Modélisation et mise en oeuvre d’un langage de modélisation des données
  Fait par Lucas Bernin, Kaivin Gidel et Maxime Yonnet 
  
  Dans ce projet se trouve le repertoire SimpleExpression qui contient : 
