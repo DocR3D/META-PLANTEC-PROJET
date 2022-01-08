@@ -2,9 +2,6 @@ package XMLIO2;
 
 
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.File;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,9 +17,6 @@ import org.w3c.dom.Document;
 
 import MetaModel.Modele;
 import MetaModel.NamedElement;
-import SLMetaModel.AddExp;
-import SLMetaModel.Exp;
-import SLMetaModel.IntExp;
 
 class XMLAnalyserTest {
 
@@ -32,10 +26,10 @@ class XMLAnalyserTest {
 		NamedElement exp = analyser.getRootFromFilenamed("ExempleXML01.xml");
 		assert(exp instanceof Modele);
 		System.out.println(((Modele)exp).valeur());
-		
+
 
 	}
-	
+
 	@Test
 	void test3() throws ParserConfigurationException, TransformerException {
 		XMLAnalyser analyser = new XMLAnalyser();
@@ -62,7 +56,7 @@ class XMLAnalyserTest {
 		assertTrue(result.getOpd() instanceof IntExp);
 		assertTrue(((IntExp) result.getOpd()).getVal() == 2);
 	}
-	
+
 	@Test
 	void test3() {
 		String src = "<Root start=\"3\"> <IntExp id=\"3\" val=\"20\"/> </Root>";
@@ -71,6 +65,6 @@ class XMLAnalyserTest {
 		assertTrue(exp instanceof IntExp);
 		assertTrue(((IntExp)exp).getVal() == 20);
 	}
-	*/
+	 */
 
 }

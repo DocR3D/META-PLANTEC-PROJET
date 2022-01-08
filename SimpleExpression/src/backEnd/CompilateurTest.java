@@ -16,7 +16,7 @@ public class CompilateurTest {
 		calc.afficher();
 		//assertTrue(((IntExp)calc.result()).getVal() == 2);
 	}
-	
+
 	@Test
 	void test2() {
 		XMLAnalyser analyser = new XMLAnalyser();

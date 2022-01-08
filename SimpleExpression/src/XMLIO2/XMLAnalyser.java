@@ -62,7 +62,7 @@ public class XMLAnalyser {
 		String lesEntites = e.getAttribute("entities");
 		ArrayList<Integer> lesId = new ArrayList<Integer>();
 		for(String unNombre : lesEntites.split(" ")) {
-				lesId.add(Integer.parseInt(unNombre));
+			lesId.add(Integer.parseInt(unNombre));
 		}
 		childsOfElements.put(id+"", lesId);
 
@@ -110,7 +110,7 @@ public class XMLAnalyser {
 	}
 
 	protected void AddChildsToElement(NamedElement e) {
-		
+
 		if (e instanceof Modele && this.childsOfElements.get(e.getId()+"") != null) {
 			for(Integer unNombre : this.childsOfElements.get(e.getId()+"")) {
 				((Modele)e).addType((Type) this.namedElementIndex.get(unNombre+""));

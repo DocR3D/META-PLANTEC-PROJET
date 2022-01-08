@@ -63,19 +63,19 @@ class ExpSerailizerTest {
 		Result result = new StreamResult(new File("exemple3-out.xml"));
 		transformer.transform(source, result);
 	}
-	
+
 	@Test
 	void test2() throws TransformerException {
 		StreamSource source = new StreamSource(new StringReader("<IntExp val=\"3\"/>"));
-	    StringWriter writer = new StringWriter();
-	    StreamResult result = new StreamResult(writer);
-	    TransformerFactory tFactory = TransformerFactory.newInstance();
-	    Transformer transformer = tFactory.newTransformer();
-	    transformer.transform(source,result);
-	    String strResult = writer.toString();
-	    System.out.println(strResult);
+		StringWriter writer = new StringWriter();
+		StreamResult result = new StreamResult(writer);
+		TransformerFactory tFactory = TransformerFactory.newInstance();
+		Transformer transformer = tFactory.newTransformer();
+		transformer.transform(source,result);
+		String strResult = writer.toString();
+		System.out.println(strResult);
 	}
-	
+
 	@Test
 	void test3() throws ParserConfigurationException, TransformerException {
 		XMLAnalyser analyser = new XMLAnalyser();
