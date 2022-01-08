@@ -6,6 +6,7 @@ public class Entite extends NamedElement {
 	
 	ArrayList<NamedElement> attributs;
 
+
 	public Entite(String nom, int id) {
 		super(nom, id);
 		this.attributs = new ArrayList<NamedElement>();

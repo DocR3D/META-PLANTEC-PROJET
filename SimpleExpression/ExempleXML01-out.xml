@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Root root="0"><model entities=" 2 13" id="1" name="Flotte"/><entity id="2" name="Satellite"/><attribut id="3" name="nom" type="String"/><attribut id="4" name="id" type="Integer"/><attribut id="5" name="parent" type="Flotte"/><entity id="13" name="Flotte"/></Root>

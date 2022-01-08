@@ -32,7 +32,7 @@ public class XMLAnalyser {
 	protected Map<String, Element> elementIndex;
 	protected Map<String, NamedElement> namedElementIndex;
 	protected Map<String, ArrayList<Integer>> childsOfElements;
-
+	
 	public XMLAnalyser() {
 		this.elementIndex = new HashMap<String, Element>();
 		this.namedElementIndex = new HashMap<String, NamedElement>();
@@ -70,22 +70,34 @@ public class XMLAnalyser {
 	protected Attribut attributeFromElement(Element e) {
 		String name = e.getAttribute("name");
 		Integer id = Integer.parseInt(e.getAttribute("id"));
-		String type = e.getAttribute("type");
-
-		return new Attribut(type,name,id);
+		String typeName = e.getAttribute("type");
+		
+		NamedElement unAttribut;
+		if(this.namedElementIndex.get(typeName) == null) {
+			unAttribut = new Attribut(null,typeName, -1);
+		}else {
+			unAttribut = this.namedElementIndex.get(typeName);
+		}
+		return new Attribut(unAttribut,name,id);
 	}
 
 	protected Collection collectionFromElement(Element e) {
 		String name = e.getAttribute("name");
-		String type = e.getAttribute("type");
+		String typeName = e.getAttribute("type");
+		
+		NamedElement type;
+		if(this.namedElementIndex.get(typeName) == null)
+			type = new Entite(typeName, -1);
+		else type = this.namedElementIndex.get(typeName);
+		
 
 		Integer id = Integer.parseInt(e.getAttribute("id"));
-
-
-		Integer min = Integer.parseInt(e.getAttribute("min"));
 		Integer max = Integer.parseInt(e.getAttribute("max"));
-
-		if(min != null) return new StaticArray(type,name,id,min,max); //TODO Modifier ça quand séparation collection
+		Integer min;
+		if(!e.getAttribute("min").equals("")) {
+			min = Integer.parseInt(e.getAttribute("min"));
+			return new Collection(type,name,id,min,max);
+		}
 		return new StaticArray(type,name,max,id);
 	}
 
@@ -144,9 +156,22 @@ public class XMLAnalyser {
 	protected void thirdRound() {
 		for(NamedElement unElement : namedElementIndex.values()) {
 			AddChildsToElement(unElement);
+			replaceFakeElement(unElement);
 		}
 	}
 
+
+	private void replaceFakeElement(NamedElement unElement) {
+		if(unElement instanceof Collection) {
+			Collection uneCollection = (Collection) unElement;
+			System.out.println(namedElementIndex.get(uneCollection.getType().getNom()));
+			uneCollection.setType(namedElementIndex.get(uneCollection.getType().getNom()));
+		}else if(unElement instanceof Attribut){
+			Attribut unAttribut = (Attribut) unElement;
+			unAttribut.setType(namedElementIndex.get(unAttribut.getType().getNom()));
+		}
+		
+	}
 
 	public NamedElement getStartExpFromDocument(Document document) {
 		Element e = document.getDocumentElement();

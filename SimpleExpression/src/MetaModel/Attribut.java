@@ -10,6 +10,10 @@ public class Attribut extends NamedElement {
 		this.type = type;
 	}
 
+	public NamedElement getType() {
+		return type;
+	}
+
 	@Override
 	public void accept(Visitor v) {
 		v.visitAttribut(this);

@@ -108,7 +108,7 @@ public class XMLSerializer extends Visitor {
 		addIdAndName(e, elem);
 
 		Attr attr = doc.createAttribute("type");
-		attr.setValue(e.valeur());
+		attr.setValue(e.getType().getNom());
 		elem.setAttributeNode(attr);
 
 	}
