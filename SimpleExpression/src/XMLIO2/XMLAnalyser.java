@@ -94,10 +94,10 @@ public class XMLAnalyser {
 		Integer max = Integer.parseInt(e.getAttribute("max"));
 		Integer min;
 		if(!e.getAttribute("min").equals("")) {
+			String typeCollectionName = e.getAttribute("typeCollectionName");
 			min = Integer.parseInt(e.getAttribute("min"));
-			return new Collection(type,name,id,min,max);
-		}
-		return new StaticArray(type,name,max,id);
+			return new Collection(type,name,id,min,max,typeCollectionName);
+		}else return new StaticArray(type,name,id,max);
 	}
 
 	protected NamedElement NamedElementFromElement(Element e) {
@@ -119,7 +119,6 @@ public class XMLAnalyser {
 	}
 
 	protected void AddChildsToElement(NamedElement e) {
-
 		if (e instanceof Modele && this.childsOfElements.get(e.getId()+"") != null) {
 			for(Integer unNombre : this.childsOfElements.get(e.getId()+"")) {
 				((Modele)e).addType(this.namedElementIndex.get(unNombre+""));
@@ -167,7 +166,7 @@ public class XMLAnalyser {
 				if(unAttributQueJeCherche instanceof Entite)
 					if(unAttributQueJeCherche.getNom().equals(uneCollection.getType().getNom())) {
 						uneCollection.setType(namedElementIndex.get(uneCollection.getType().getNom()));
-				}
+					}
 			}
 		}else 
 			if(unElement instanceof Attribut && !(unElement instanceof Collection)){

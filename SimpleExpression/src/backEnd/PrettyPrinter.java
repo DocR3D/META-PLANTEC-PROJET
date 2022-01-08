@@ -20,9 +20,9 @@ public class PrettyPrinter extends Visitor {
 	public void visitCollection(Collection e) {
 
 		if(e.getMin() == 0) // C'est un tableau
-			ajouterTextAvecTabAvant(e.getNom() + ": Array [" + e.getMax() +"] of " + e.valeur().getNom() + "\n");
+			ajouterTextAvecTabAvant(e.getNom() + ": List [" + e.getMax() +"] of " + e.valeur().getNom() + "\n");
 		else
-			ajouterTextAvecTabAvant(e.getNom() + ": List [" + e.getMin() +":"+ e.getMax() +"] of " + e.valeur().getNom()+"\n");
+			ajouterTextAvecTabAvant(e.getNom() + ": " + e.getTypeCollectionName() + " [" + e.getMin() +":"+ e.getMax() +"] of " + e.valeur().getNom()+"\n");
 	}
 
 
