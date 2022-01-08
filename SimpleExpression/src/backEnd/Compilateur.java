@@ -1,14 +1,10 @@
 package backEnd;
 
-import java.util.List;
-import java.util.Set;
-
 import MetaModel.Attribut;
 import MetaModel.Collection;
 import MetaModel.Entite;
 import MetaModel.Modele;
 import MetaModel.NamedElement;
-import MetaModel.Type;
 import MetaModel.Visitor;
 
 public class Compilateur extends Visitor {

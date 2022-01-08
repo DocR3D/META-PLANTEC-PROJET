@@ -3,9 +3,9 @@ package MetaModel;
 
 public class Attribut extends NamedElement {
 
-	String type; //TODO : type = String ou Type
+	NamedElement type; //TODO : type = String ou Type
 	
-	public Attribut(String type, String nom, int id) { 
+	public Attribut(NamedElement type, String nom, int id) { 
 		super(nom, id);
 		this.type = type;
 	}
@@ -15,11 +15,11 @@ public class Attribut extends NamedElement {
 		v.visitAttribut(this);
 	}
 
-	public String valeur() {
+	public NamedElement valeur() {
 		return type;
 	}
 	
-	public void setType(String type) {
+	public void setType(NamedElement type) {
 		this.type = type;
 	}
 	

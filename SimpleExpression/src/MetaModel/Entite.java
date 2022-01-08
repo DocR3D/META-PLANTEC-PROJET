@@ -2,7 +2,7 @@ package MetaModel;
 
 import java.util.ArrayList;
 
-public class Entite extends Type {
+public class Entite extends NamedElement {
 	
 	ArrayList<NamedElement> attributs;
 

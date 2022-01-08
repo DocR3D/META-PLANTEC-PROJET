@@ -5,7 +5,7 @@ public class Collection extends Attribut {
 	int min;
 	int max;
 	
-	public Collection(String type, String nom, int id, int min, int max) {
+	public Collection(NamedElement type, String nom, int id, int min, int max) {
 		super(type, nom, id);
 		this.min = min;
 		this.max = max;
@@ -24,10 +24,10 @@ public class Collection extends Attribut {
 		v.visitCollection(this);
 	}
 
-	public String valeur() {
+	public NamedElement valeur() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(NamedElement type) {
 		this.type = type;
 	}
 

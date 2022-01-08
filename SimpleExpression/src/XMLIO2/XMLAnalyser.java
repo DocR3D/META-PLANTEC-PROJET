@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -27,7 +26,6 @@ import MetaModel.Entite;
 import MetaModel.Modele;
 import MetaModel.NamedElement;
 import MetaModel.StaticArray;
-import MetaModel.Type;
 
 public class XMLAnalyser {
 
@@ -113,7 +111,7 @@ public class XMLAnalyser {
 
 		if (e instanceof Modele && this.childsOfElements.get(e.getId()+"") != null) {
 			for(Integer unNombre : this.childsOfElements.get(e.getId()+"")) {
-				((Modele)e).addType((Type) this.namedElementIndex.get(unNombre+""));
+				((Modele)e).addType(this.namedElementIndex.get(unNombre+""));
 			}
 		} else if(e instanceof Entite && this.childsOfElements.get(e.getId()+"") != null){
 			for(Integer unNombre : this.childsOfElements.get(e.getId()+"")) {

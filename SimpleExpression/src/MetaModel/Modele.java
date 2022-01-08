@@ -2,7 +2,7 @@ package MetaModel;
 
 import java.util.ArrayList;
 
-public class Modele extends Type {
+public class Modele extends NamedElement {
 
 	ArrayList<NamedElement> entites; //TODO Modifier le type ? 
 	
@@ -23,7 +23,7 @@ public class Modele extends Type {
 		return entites;
 	}
 	
-	public void addType(Type t) {
+	public void addType(NamedElement t) {
 		entites.add(t);
 	}
 	
