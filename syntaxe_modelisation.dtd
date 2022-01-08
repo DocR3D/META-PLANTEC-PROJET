@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!ELEMENT root (model*)>
+
+<!ELEMENT model (entity*, attribut*)>
+<!ATTLIST model entities (#PCDATA)>
+<!ATTLIST model id ID #IMPLIED>
+<!ATTLIST model name (#PCDATA)>
+
+<!ELEMENT entity (#PCDATA)>
+<!ATTLIST entity id ID #IMPLIED>
+<!ATTLIST entity name (#PCDATA)>
+
+<!ELEMENT attribut (#PCDATA)>
+<!ATTLIST attribut id ID #IMPLIED>
+<!ATTLIST attribut name (#PCDATA)>
+<!ATTLIST attribut type (#PCDATA) #REQUIRED>
