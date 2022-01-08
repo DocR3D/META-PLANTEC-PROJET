@@ -3,9 +3,9 @@
  
  Dans ce projet se trouve le repertoire SimpleExpression qui contient : 
  - Un repertoire src contenant tout le code
- - N fichier XML avec le resultat de leur import/Export se terminant par -out.xml
+ - 2 fichiers XML + les resultats de leur import/Export se terminant par -out.xml
  - "ProjetMetaUML.png" qui correspond au diagramme Uml du MetaModel
- - "QUELQUECHOSE.dtd" qui correspond au format de la dtd
+ - "syntaxe_modelisation.dtd" qui correspond au format de la dtd
  
  Dans ce projet nous avons réalisés : 
  - L'importation de fichiers XML selon la DTD à l'aide des librairies DOM, la classe se trouve dans src/XMLIO/XMLAnalyser.java
