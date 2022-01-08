@@ -1,7 +1,5 @@
 package XMLIO2;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.File;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -23,11 +21,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import MetaModel.NamedElement;
-import SLMetaModel.Exp;
-import SLMetaModel.IntExp;
-import backEnd.Calculator;
 
-class ExpSerailizerTest {
+class XMLSerializerTest {
 
 	@Test
 	void test0() throws TransformerException, ParserConfigurationException {
@@ -80,7 +75,7 @@ class ExpSerailizerTest {
 	void test3() throws ParserConfigurationException, TransformerException {
 		XMLAnalyser analyser = new XMLAnalyser();
 		NamedElement exp = analyser.getRootFromFilenamed("Exemple1.xml");
-		XmlSerializer serializer = new XmlSerializer();
+		XMLSerializer serializer = new XMLSerializer();
 		exp.accept(serializer);
 		Document document = serializer.result();
 		TransformerFactory tFactory = TransformerFactory.newInstance();
@@ -94,7 +89,7 @@ class ExpSerailizerTest {
 	void test4() throws ParserConfigurationException, TransformerException {
 		XMLAnalyser analyser = new XMLAnalyser();
 		NamedElement exp = analyser.getRootFromFilenamed("Exemple2.xml");
-		XmlSerializer serializer = new XmlSerializer();
+		XMLSerializer serializer = new XMLSerializer();
 		exp.accept(serializer);
 		Document document = serializer.result();
 		TransformerFactory tFactory = TransformerFactory.newInstance();
@@ -104,13 +99,5 @@ class ExpSerailizerTest {
 		Result result = new StreamResult(new File("exemple2-out.xml"));
 		transformer.transform(source, result);
 	}
-	@Test
-	void test5() {
-		IntExp exp = new IntExp(3);
-		Calculator calc = new Calculator();
-		exp.accept(calc);
-		assertTrue(((IntExp)calc.result()).getVal() == 3);
-	}
-
 
 }

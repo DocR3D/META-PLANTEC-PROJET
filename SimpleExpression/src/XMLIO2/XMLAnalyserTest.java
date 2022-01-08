@@ -34,7 +34,7 @@ class XMLAnalyserTest {
 	void test3() throws ParserConfigurationException, TransformerException {
 		XMLAnalyser analyser = new XMLAnalyser();
 		NamedElement exp = analyser.getRootFromFilenamed("ExempleXML01.xml");
-		XmlSerializer serializer = new XmlSerializer();
+		XMLSerializer serializer = new XMLSerializer();
 		exp.accept(serializer);
 		Document document = serializer.result();
 		TransformerFactory tFactory = TransformerFactory.newInstance();

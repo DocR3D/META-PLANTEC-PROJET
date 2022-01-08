@@ -18,7 +18,7 @@ import MetaModel.Modele;
 import MetaModel.NamedElement;
 import MetaModel.Visitor;
 
-public class XmlSerializer extends Visitor {
+public class XMLSerializer extends Visitor {
 	Deque<Element> stack;
 	Element root = null;
 	Integer counter;
@@ -28,7 +28,7 @@ public class XmlSerializer extends Visitor {
 		return this.doc;
 	}
 
-	public XmlSerializer() throws ParserConfigurationException {
+	public XMLSerializer() throws ParserConfigurationException {
 		this.stack = new ArrayDeque<>();
 		this.counter = 0;
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

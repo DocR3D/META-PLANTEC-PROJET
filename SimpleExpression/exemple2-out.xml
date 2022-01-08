@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Root root="1">
-	<AddExp id="1" opd="2" opg="3" />
-	<IntExp id="2" val="3" />
-	<IntExp id="3" val="2" />
-</Root>
