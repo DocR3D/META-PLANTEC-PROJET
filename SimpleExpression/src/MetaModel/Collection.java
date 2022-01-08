@@ -1,7 +1,5 @@
 package MetaModel;
 
-import java.util.ArrayList;
-
 public abstract class Collection extends Attribut {
 
 	int min;

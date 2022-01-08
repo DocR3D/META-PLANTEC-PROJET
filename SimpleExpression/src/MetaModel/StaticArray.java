@@ -6,7 +6,7 @@ public class StaticArray extends Collection{
 		super(nom, id, 0, max);
 	}
 	
-	public StaticArray(String Type, String nom, int id, int max) {
+	public StaticArray(String type, String nom, int id, int max) {
 		super(nom, id, 0, max);
 		this.type = type;
 	}
