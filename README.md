@@ -15,6 +15,8 @@
  Ces quatres parties ont été faites en utilisant un visiteur different à chacun 
  
  Le code se trouvant dans le repertoire src est séparé en trois repertoires (package) :
- - BackEnd qui contient le PrettyPrinter, l'outil de renommage et leurs classes de test
+ - BackEnd qui contient le PrettyPrinter et l'outil de renommage utilisant tous les deux un visiteur differents
  - MetaModel qui contient l'ensemble des classes nécéssaires la création des objets
- - XMLIO qui contient l'analyser de fichier XML, le serializer et pour chacun, une classe de test
+ - XMLIO qui contient l'analyser et le serializer de fichier XML utilisant eux aussi un visiteur
+ Pour chacun de ces visiteurs, se trouve une classe test dans le package Test
+
