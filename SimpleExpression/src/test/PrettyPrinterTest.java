@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import MetaModel.Modele;
-import XMLIO2.XMLAnalyser;
+import XMLIO.XMLAnalyser;
 import backEnd.PrettyPrinter;
 
 public class PrettyPrinterTest {

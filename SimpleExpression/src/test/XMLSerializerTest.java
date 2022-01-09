@@ -14,8 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 
 import MetaModel.NamedElement;
-import XMLIO2.XMLAnalyser;
-import XMLIO2.XMLSerializer;
+import XMLIO.XMLAnalyser;
+import XMLIO.XMLSerializer;
 
 class XMLSerializerTest {
 	

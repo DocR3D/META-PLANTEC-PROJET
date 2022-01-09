@@ -1,4 +1,4 @@
-package XMLIO2;
+package XMLIO;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;

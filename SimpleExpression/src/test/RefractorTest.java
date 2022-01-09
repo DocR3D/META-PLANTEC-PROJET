@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import MetaModel.Collection;
 import MetaModel.Entite;
 import MetaModel.Modele;
-import XMLIO2.XMLAnalyser;
+import XMLIO.XMLAnalyser;
 import backEnd.Refractor;
 
 public class RefractorTest {

@@ -10,7 +10,7 @@ import MetaModel.Collection;
 import MetaModel.Entite;
 import MetaModel.Modele;
 import MetaModel.StaticArray;
-import XMLIO2.XMLAnalyser;
+import XMLIO.XMLAnalyser;
 
 class XMLAnalyserTest {
 	
